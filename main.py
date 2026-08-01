@@ -20,9 +20,13 @@ def get_password_length():
 def get_yes_no_choice(prompt):
     while True:
         choice = input(prompt).strip().lower()
-        if choice in ['y', 'n']:
-            return choice == 'y'
-        print("Error: Please enter 'y' for yes or 'n' for no.")
+
+        if choice in ("y", "yes"):
+            return True
+        elif choice in ("n", "no"):
+            return False
+
+        print("Error: Please enter 'y'/'yes' or 'n'/'no'.")
 
 def build_character_pool(include_lowercase, include_uppercase, include_digits, include_special):
     lowercase = "abcdefghijklmnopqrstuvwxyz" if include_lowercase else ""
@@ -37,10 +41,22 @@ def generate_password(length, character_pool):
 def display_generated_password(password):
     print(f"Generated Password: {password}")
 
+def exit_program():
+    continue_choice = get_yes_no_choice(
+        "Do you want to generate another password? (y/n): "
+    )
+
+    if continue_choice:
+        return True
+
+    print("Exiting the Password Generator. Goodbye!")
+    return False
+
 def run_password_generator():
     display_welcome_message()
 
-    while True:
+    want_to_continue = True
+    while want_to_continue:
 
         # Get length
         length  = get_password_length()
@@ -71,6 +87,9 @@ def run_password_generator():
 
         # Display generated password
         display_generated_password(password)
+
+        # Ask if the user wants to generate another password
+        want_to_continue = exit_program()
 
 if __name__ == "__main__":
     run_password_generator()
