@@ -39,12 +39,13 @@ def generate_password(length, character_pool):
     return ''.join(secrets.choice(character_pool) for _ in range(length))
 
 def display_generated_password(password):
-    print(f"Generated Password: {password}")
+    return password
 
-def exit_program():
+def ask_to_continue():
     continue_choice = get_yes_no_choice(
         "Do you want to generate another password? (y/n): "
     )
+    print()
 
     if continue_choice:
         return True
@@ -60,16 +61,19 @@ def run_password_generator():
 
         # Get length
         length  = get_password_length()
+        print()
 
         # Get character types
         include_lowercase = get_yes_no_choice("Include lowercase letters? (y/n): ")
         include_uppercase = get_yes_no_choice("Include uppercase letters? (y/n): ")
         include_digits    = get_yes_no_choice("Include digits? (y/n): ")
         include_special   = get_yes_no_choice("Include special characters? (y/n): ")
+        print()
 
         # Validate character type selection
         if not any([include_lowercase, include_uppercase, include_digits, include_special]):
             print("Error: At least one character type must be selected.")
+            print()
             continue
 
         # Build character pool
@@ -86,10 +90,11 @@ def run_password_generator():
         password = generate_password(length, character_pool)
 
         # Display generated password
-        display_generated_password(password)
+        print(f"Generated Password: {display_generated_password(password)}")
+        print()
 
         # Ask if the user wants to generate another password
-        want_to_continue = exit_program()
+        want_to_continue = ask_to_continue()
 
 if __name__ == "__main__":
     run_password_generator()
