@@ -39,7 +39,8 @@ def generate_password(length, character_pool):
     return ''.join(secrets.choice(character_pool) for _ in range(length))
 
 def display_generated_password(password):
-    return password
+        print(f"Generated Password: {password}")
+        print()
 
 def ask_to_continue():
     continue_choice = get_yes_no_choice(
@@ -84,14 +85,11 @@ def run_password_generator():
             include_special   = include_special
         )
 
-        # 
-
         # Generate password
         password = generate_password(length, character_pool)
 
         # Display generated password
-        print(f"Generated Password: {display_generated_password(password)}")
-        print()
+        display_generated_password(password)
 
         # Ask if the user wants to generate another password
         want_to_continue = ask_to_continue()
